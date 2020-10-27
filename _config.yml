@@ -1,4 +1,4 @@
-title: Markunet Blog
+title: markunet
 description: Markunet Blog
 
 url: https://markunet.github.io
@@ -22,7 +22,7 @@ navigation:
    url: /about
 
 social:
-   github: Markunet
+   github: markunet
    linkedin: 
    facebook: 
    email: 
