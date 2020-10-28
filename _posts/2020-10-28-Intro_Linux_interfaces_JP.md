@@ -40,7 +40,7 @@ Linuxには、VMとコンテナ、およびクラウド環境をホストする�
 
 Linuxブリッジは、L2スイッチのように動作します。接続されているインターフェース間でパケットを転送します。これは通常、VMとホスト上のネットワーク名前空間の間でパケットを転送する時などに使用されます。また、STP、VLANフィルタ、およびマルチキャストスヌーピングもサポートしています。VM、コンテナ、およびホスト間の通信チャネルを確立する場合は、ブリッジを使用します。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/bridge.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/bridge.png" ></p>
 
 ブリッジを作成する方法は次のとおりです。
 
@@ -59,7 +59,7 @@ ip link set veth1 master br0
 Linux Bonding Driver は、複数のネットワークインターフェースを単一の論理的な「結合(bond)された」インターフェースに集約する方法を提供します。Bonded interface の動作はモードによって異なります。一般的に、モードはホットスタンバイまたは負荷分散サービスのいずれかを提供します。
 リンクスピードを上げたり、サーバーでフェイルオーバーを実行したりする場合は、 Bonded interface を使用します。 Bonded interface を作成する方法は次のとおりです。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/bond.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/bond.png" ></p>
 
 ```shell
 ip link add bond1 type bond miimon 100 mode active-backup
@@ -73,7 +73,7 @@ ip link set eth1 master bond1
 
 Bonded interface と同様に、Team device の目的は、複数のNIC（ポート）をL2で論理的に1つの（teamdev）にグループ化するメカニズムを提供することです。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/team.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/team.png" ></p>
 
 ただし、 Bonded interface と Team の間には機能上の違いもいくつかあります。たとえば、チームは LACP 負荷分散、NS/NA（IPV6）リンク監視、D-Busインターフェースなどをサポートしますが、これらはBonding にはありません。 Bonding では提供されない機能を使用する場合は、チームを使用してください。
 Bonding と Team の違いの[詳細](https://github.com/jpirko/libteam/wiki/Bonding-vs.-Team-features)は以下です。
@@ -133,11 +133,11 @@ ip link add link eth0 name eth0.3 type vlan id 3
 ```
 これはVLAN 2を追加`eth0.2`、VLAN 3を`eth0.3`で追加します。トポロジは次のようになります。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/vlan.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/vlan.png" ></p>
 
 ## VXLAN (Virtual eXtensible Local Area Network)
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/vxlan.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/vxlan.png" ></p>
 
 VXLANの使用方法は次のとおりです。 `dstport 4789` は [IETF RFC7348](https://tools.ietf.org/html/rfc7348)で標準化されたVXLAN UDP portです。
 
@@ -186,11 +186,11 @@ bridge fdb show dev vxlan0
 MACVLANを使用すると、単一の物理インターフェース上に、異なるMACアドレスとIPアドレスを持つ複数のサブインターフェースを作成できます。
 これは、VLANを使用して物理インターフェース上にサブインターフェースを作成することとは異なります。vlanサブインターフェースでは、各サブインターフェースはvlanを使用する異なるL2ドメインに属し、すべてのサブインターフェースは同じMACアドレスを持っています。macvlanを使用すると、各サブインターフェースは一意のMACアドレスとIPアドレスを取得し、アンダーレイネットワークに直接公開されます。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/linux-macvlan-1.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/linux-macvlan-1.png" ></p>
 
 MACVLANの前は、以下に示すように、VMまたは名前空間から物理ネットワークに接続する場合は、TAP / VETHデバイスを作成し、片側をブリッジに接続し、同時に物理インターフェースをホスト上のブリッジに接続する必要がありました。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/br_ns.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/br_ns.png" ></p>
 
 現在、MACVLANを使用すると、MACVLANに関連付けられている物理インターフェースを、ブリッジを必要とせずに名前空間に直接バインドできます。
 
@@ -199,17 +199,17 @@ MACVLANには5つのタイプがあります。
 1. Private:
 同じ親インターフェース上のサブインターフェースは、相互に通信できません。サブインターフェースからのすべてのフレームは、親インターフェースを介して転送されます。外部の物理スイッチがヘアピンモードをサポートしている場合でも、同じ物理インターフェース上のMACVLANインスタンス間の通信を許可しません。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/linux-macvlan-private-mode.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/linux-macvlan-private-mode.png" ></p>
 
 2. VEPA(Virtual Ethernet Port Aggregator):
 サブインターフェースからのすべてのフレームは、親インターフェースを介して転送されます。VEPAモードには、`IEEE 802.1Qbg`で定義され、VEPAとなる物理スイッチが必要です。VEPA対応スイッチは、送信元と宛先の両方がmacvlanインターフェースに対してローカルであるすべてのフレームを返します。その結果、同じ親インターフェース上のmacvlanサブインターフェースは、物理スイッチを介して相互に通信できます。親インターフェースを介して着信するブロードキャストフレームは、VEPAモードのすべてのmacvlanインターフェースにフラッディングされます。VEPAモードは、物理スイッチにポリシーを適用していて、すべてのVM間トラフィックが物理スイッチを通過するようにする場合に役立ちます。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/linux-macvlan-802.1qbg-vepa-mode.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/linux-macvlan-802.1qbg-vepa-mode.png" ></p>
 
 3. Bridge:
 親インターフェース上のすべてのサブインターフェースを単純なブリッジで接続します。あるインターフェースから別のインターフェースへのフレームは直接配信され、外部に送信されません。ブロードキャストフレームは、他のすべてのブリッジポートと外部インターフェースにフラッディングされますが、VEPスイッチから戻ってくると破棄されます。すべてのmacvlanサブインターフェースのMACアドレスがわかっているため、macvlanブリッジモードはMAC学習を必要とせず、STPも必要としません。ブリッジモードはVM間の通信を最速で提供しますが、親インターフェースの性能が低下すると、すべてのmacvlanサブインターフェースの性能も低下します。物理インターフェースが切断されると、VMは相互に通信できなくなります。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/linux-macvlan-bridge-mode.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/linux-macvlan-bridge-mode.png" ></p>
 
 MACVLANをブリッジモード設定する方法は次のとおりです。
 
@@ -227,7 +227,7 @@ ip link set macvlan2 netns net2
 4. Passthru
 単一のVMを物理インターフェースに直接接続できます。このモードの利点は、VMがMACアドレスやその他のインターフェースパラメータを変更できることです。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/linux-macvlan-passthru-mode.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/linux-macvlan-passthru-mode.png" ></p>
 
 5. Source:
 送信元モードは、許可された送信元MACアドレスのリストに基づいてトラフィックをフィルタリングし、MACベースのVLANアソシエーションを作成するために使用されます。
@@ -253,7 +253,7 @@ ip link set macvlan2 netns net2
 
 IPVLANはすべてのサブインターフェースは親のインターフェースのMACアドレスを共有しますが、個別のIPアドレスを使用します。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/linux-ipvlan.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/linux-ipvlan.png" ></p>
 
 単一の親インターフェース上のすべてのVMまたはコンテナが同じMACアドレスを使用するため、ipvlanにはいくつかの欠点もあります。
 
@@ -268,14 +268,14 @@ ipvlanには2つの動作モードがあります。単一の親インターフ�
 L2モードは、macvlanブリッジモードに類似しています。
 親インターフェースは、サブインターフェースと親インターフェースの間のスイッチとして機能します。同じ親Ipvlanインターフェースに接続され、同じサブネット内にあるすべてのVMまたはコンテナーは、親インターフェースを介して相互に直接通信できます。他のサブネット宛てのトラフィックは、親インターフェースを介してデフォルトゲートウェイ（物理ルーター）に送信されます。L2モードのIpvlanは、ブロードキャスト/マルチキャストをすべてのサブインターフェースに配信します。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/linux-ipvlan-l2-mode.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/linux-ipvlan-l2-mode.png" ></p>
 
 #### ipvlan L3 mode
 
 L3モードは、サブインターフェースと親インターフェースの間のL3デバイス（ルータ）として機能します。
 各サブインターフェースは異なるサブネットで構成する必要があります。つまり、両方のインターフェースで10.10.40.0/24を構成することはできません。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/linux-ipvlan-l3-mode-1.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/linux-ipvlan-l3-mode-1.png" ></p>
 
 ブロードキャストはL2ドメインに制限されているため、あるサブインターフェースから別のサブインターフェースにブロードキャストすることはできません。L3モードはマルチキャストをサポートしていません。
 L3モードはルーティングプロトコルをサポートしていないため、接続先のサブネットを物理ネットワークルーターに通知することはできません。サブインターフェース上のすべてのサブネットに対して、ホストの物理インターフェースを指す物理ルーターに静的ルートを構成する必要があります。
@@ -322,7 +322,7 @@ MACVTAP / IPVTAPは、仮想化されたブリッジネットワークを簡素�
 MACVTAP / IPVTAPを使用すると、TUN / TAPとブリッジドライバーの組み合わせを単一のモジュールに置き換えることができます。
 通常、MACVLAN / IPVLANは、ゲストとホストの両方が、ホストが接続されているスイッチに直接表示されるようにするために使用されます。MACVTAPとIPVTAPの違いは、MACVLAN / IPVLANの場合と同じです。
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/macvtap.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/macvtap.png" ></p>
 
 macvtapの設定は以下のようになります。
 
@@ -345,7 +345,7 @@ ip netns add net2
 ip link add veth1 netns net1 type veth peer name veth2 netns net2
 ```
 
-<p align="center"><img src="../assets/img/2020-10-28-linux-interfaces/veth.png" ></p>
+<p align="center"><img src="/assets/img/2020-10-28-linux-interfaces/veth.png" ></p>
 
 ## NLMON (NetLink MONitor)
 
