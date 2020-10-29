@@ -24,8 +24,8 @@ navigation:
 social:
    github: markunet
    linkedin: markunet
-   facebook: 
-   email: 
+   facebook:
+   email:
 
 defaults:
   -
@@ -34,6 +34,9 @@ defaults:
       type: "pages"
     values:
       comments: false
+
+# Google Analytics
+google_analytics: "UA-181625934-1"
 
 # development configurations
 host: 0.0.0.0
