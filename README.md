@@ -1,4 +1,4 @@
-Repo for my [blog website](https://arthurchiao.github.io).
+Repo for my [blog website](https://markunet.github.io).
 
 # 1. Theme
 
@@ -14,23 +14,23 @@ and has changed a lot since then.
 2. Clone this repo, remove my info
 
     ```shell
-    $ git clone https://github.com/arthurchiao/arthurchiao.github.io.git
-    $ cp -rf arthurchiao.github.io.git <your_github_id>.github.io
-    
+    $ git clone https://github.com/markunet/markunet.github.io.git
+    $ cp -rf markunet.github.io <your_github_id>.github.io
+
     $ cd <your_github_id>.github.io
-    
+
     # remove my posts
     $ rm -rf .git/ _posts/* _drafts/*
-    
+
     # modify personal information in the matched files
-    $ grep -i arthurchiao *
+    $ grep -i markunet *
     ```
 
     **Remove the google analytics code in `_config.yml`**, otherwise, your
     website's statistics will go to my mine:
 
     ```shell
-    $ vim _config.yml # delete this line: google_analytics: "UA-89960542-1"
+    $ vi _config.yml # delete this line: google_analytics: "UA-181625934-1"
                       # or create your own code
     ```
 
