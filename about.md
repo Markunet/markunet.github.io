@@ -5,7 +5,7 @@ title: Markunet
 
 # About Me
 
-* Network Engineer
+* Senior Network Engineer, Network Architect
 
 ## Working Experience
 
@@ -16,4 +16,3 @@ title: Markunet
 * Networking, SDN
 * Cloud, Virtualization
 * Low level techniques
-
