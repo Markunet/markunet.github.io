@@ -15,7 +15,8 @@ categories: linux
 
 --------
 
-Linuxのネットワークスタックの設定や確認で頻繁に利用するツールである `iproute2` に `nexthop object` というものが実装され、経路の設定とネクストホップの設定が分離されたことによって柔軟性が増したので、簡単に使い方をまとめておきます。
+Linuxのネットワークスタックの設定や確認で頻繁に利用するツールに `iproute2` があります。最近iproute2に `nexthop object` というものが実装され、経路の設定とネクストホップの設定を分離できるようになりました。
+これによりネクストホップの設定の柔軟性が増したので、簡単に使い方をまとめておきます。
 
 この機能の非常に便利なところは、IPv4経路にIPv6ネクストホップを設定できることです(その逆も可能)。
 これにより、BGPやOSPFv3などのデュアルスタックなAddress Familyを持つルーティングプロトコルを、シングルスタックのトランスポートネットワークに実装するのが容易になります。
@@ -40,7 +41,7 @@ ip utility, iproute2-v5.7.0-77-gb687d1067169
 
 設定手順は以下のようになります。
 
-1. 2つのnetnsを作成
+1. 2つのnetnsを作成
 1. 作成したnetnsをvethで接続
 1. netnsの内部にdummy deviceを作成してIPv4アドレスを設定
 1. 対向のdummy device宛のルーティングとネクストホップを設定する
@@ -61,8 +62,8 @@ ubuntu% sudo ip netns exec ns1 ip link set dummy1 up
 ubuntu% sudo ip netns exec ns2 ip link set dummy2 up
 ```
 
-deviceと作成しupさせた時点で、自動的に `fe80::/64` の IPv6 LLA(Link Local Address)がdeviceに付与されます。vethの場合、ホスト部はランダムなIPが生成されるようです。
-明示的にわかりやすいアドレスを付与することもできますが、今回はこのまま使います。
+deviceと作成しupさせた時点で、自動的に `fe80::/64`のIPv6 LLA(Link Local Address)がdeviceに付与されます。vethの場合、ホスト部はランダムなIPが生成されるようです。
+明示的にわかりやすいアドレスを付与できますが、今回はこのまま使います。
 
 ```shell
 # ns1
@@ -158,7 +159,7 @@ PING 2.2.2.2 (2.2.2.2) 56(84) バイトのデータ
 rtt 最小/平均/最大/mdev = 0.043/0.096/0.122/0.031ミリ秒
 ```
 
-そのままnetns内で termshark に流し込んで確認してみます。
+そのままnetns内でtermsharkに流し込んで確認してみます。
 
 ```shell
 sudo ip netns exec ns2 termshark -i veth2
@@ -170,8 +171,8 @@ sudo ip netns exec ns2 termshark -i veth2
 
 ### まとめ
 
-簡単に設定することができました。
-その他にも `Blackhole nexthop` や、ネクストホップをグループ化して `Multipath nexthop` にすることもできるようです(未検証)
+簡単に設定できました。
+その他にも `Blackhole nexthop` や、ネクストホップをグループ化して `Multipath nexthop` などもできるようです(未検証)
 
 ```shell
 # Blackhole nexthop
